@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fixed Income Securities - Interactive Learning</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js" integrity="sha512-SIMGYRUjwY8+gKg7nn9ESOkMLdYkLzC1xU8cZgRPkNhvX+m/4/yFYVfQHBVJc6/1JJe6bLaY7E5YF5VqAQMhUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <header>
@@ -132,17 +131,57 @@
         <section id="yield-curve" class="section">
             <div class="container">
                 <h2>Yield Curve Visualization</h2>
-                <p>The yield curve shows the relationship between bond yields and time to maturity.</p>
+                <p>The yield curve shows the relationship between bond yields and time to maturity. Enable point editing to click and adjust yields!</p>
                 
                 <div class="chart-controls">
-                    <button onclick="setYieldCurve('normal')" class="curve-btn">Normal</button>
-                    <button onclick="setYieldCurve('inverted')" class="curve-btn">Inverted</button>
-                    <button onclick="setYieldCurve('flat')" class="curve-btn">Flat</button>
-                    <button onclick="setYieldCurve('humped')" class="curve-btn">Humped</button>
+                    <button onclick="setYieldCurve('normal')" class="curve-btn active" id="btn-normal">Normal</button>
+                    <button onclick="setYieldCurve('inverted')" class="curve-btn" id="btn-inverted">Inverted</button>
+                    <button onclick="setYieldCurve('flat')" class="curve-btn" id="btn-flat">Flat</button>
+                    <button onclick="setYieldCurve('humped')" class="curve-btn" id="btn-humped">Humped</button>
+                    <button onclick="setYieldCurve('custom')" class="curve-btn" id="btn-custom">Custom</button>
+                </div>
+
+                <div class="interactive-controls">
+                    <label>
+                        <input type="checkbox" id="enableEditing" onchange="toggleEditing()">
+                        Enable Point Editing (click points to adjust)
+                    </label>
+                    <label>
+                        <input type="checkbox" id="showGrid" checked onchange="updateYieldCurve()">
+                        Show Grid
+                    </label>
+                    <label>
+                        <input type="checkbox" id="showValues" checked onchange="updateYieldCurve()">
+                        Show Values
+                    </label>
+                    <button onclick="compareMode()" class="curve-btn" id="btn-compare">Compare Curves</button>
                 </div>
                 
-                <div class="chart-container">
-                    <canvas id="yieldCurveChart"></canvas>
+                <div class="chart-container" id="yield-chart-wrapper">
+                    <svg id="yieldCurveChart" viewBox="0 0 800 400"></svg>
+                    <div id="yield-tooltip" class="chart-tooltip"></div>
+                </div>
+
+                <div id="yield-stats" class="yield-statistics">
+                    <h3>Current Curve Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Curve Type:</span>
+                            <span class="stat-value" id="curve-type">Normal</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">2Y-10Y Spread:</span>
+                            <span class="stat-value" id="spread-2-10">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Average Yield:</span>
+                            <span class="stat-value" id="avg-yield">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Steepness:</span>
+                            <span class="stat-value" id="steepness">-</span>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="explanation">
@@ -152,6 +191,7 @@
                         <li><strong>Inverted (Downward Sloping):</strong> Shorter maturities have higher yields, may signal recession</li>
                         <li><strong>Flat:</strong> Similar yields across maturities, transition period</li>
                         <li><strong>Humped:</strong> Medium-term yields are highest, less common</li>
+                        <li><strong>Custom:</strong> Create your own curve by editing point values</li>
                     </ul>
                 </div>
             </div>
@@ -194,7 +234,8 @@
                 </div>
                 
                 <div class="chart-container">
-                    <canvas id="durationChart"></canvas>
+                    <svg id="durationChart" viewBox="0 0 800 400"></svg>
+                    <div id="duration-tooltip" class="chart-tooltip"></div>
                 </div>
                 
                 <div class="explanation">
@@ -224,7 +265,8 @@
                 </div>
                 
                 <div class="chart-container">
-                    <canvas id="riskChart"></canvas>
+                    <svg id="riskChart" viewBox="0 0 800 400"></svg>
+                    <div id="risk-tooltip" class="chart-tooltip"></div>
                 </div>
                 
                 <div class="comparison-table">
