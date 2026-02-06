@@ -7,33 +7,52 @@ function BondPricingCalculator() {
   const [yieldRate, setYieldRate] = useState(6);
   const [years, setYears] = useState(10);
   const [frequency, setFrequency] = useState(2);
+  const [compoundingConvention, setCompoundingConvention] = useState<'discrete' | 'continuous'>('discrete');
   
   const [bondPrice, setBondPrice] = useState(0);
   const [premiumDiscount, setPremiumDiscount] = useState({ text: '-', value: 0 });
   const [currentYield, setCurrentYield] = useState(0);
   const [timeline, setTimeline] = useState<Array<{ period: number; time: number; payment: number; type: string }>>([]);
+  const [pvCoupons, setPvCoupons] = useState(0);
+  const [pvFaceValue, setPvFaceValue] = useState(0);
 
   useEffect(() => {
     calculateBondPrice();
-  }, [faceValue, couponRate, yieldRate, years, frequency]);
+  }, [faceValue, couponRate, yieldRate, years, frequency, compoundingConvention]);
 
   const calculateBondPrice = () => {
     const periods = years * frequency;
     const couponPayment = (faceValue * (couponRate / 100)) / frequency;
-    const yieldPerPeriod = (yieldRate / 100) / frequency;
     
-    // Calculate present value of coupon payments
     let pvCoupons = 0;
-    for (let i = 1; i <= periods; i++) {
-      pvCoupons += couponPayment / Math.pow(1 + yieldPerPeriod, i);
+    let pvFace = 0;
+    
+    if (compoundingConvention === 'discrete') {
+      // Discrete compounding: PV = C / (1 + y/m)^i
+      const yieldPerPeriod = (yieldRate / 100) / frequency;
+      
+      for (let i = 1; i <= periods; i++) {
+        pvCoupons += couponPayment / Math.pow(1 + yieldPerPeriod, i);
+      }
+      
+      pvFace = faceValue / Math.pow(1 + yieldPerPeriod, periods);
+    } else {
+      // Continuous compounding: PV = C * e^(-y * t)
+      const annualYield = yieldRate / 100;
+      
+      for (let i = 1; i <= periods; i++) {
+        const timeInYears = i / frequency;
+        pvCoupons += couponPayment * Math.exp(-annualYield * timeInYears);
+      }
+      
+      pvFace = faceValue * Math.exp(-annualYield * years);
     }
     
-    // Calculate present value of face value
-    const pvFaceValue = faceValue / Math.pow(1 + yieldPerPeriod, periods);
-    
     // Total bond price
-    const price = pvCoupons + pvFaceValue;
+    const price = pvCoupons + pvFace;
     setBondPrice(price);
+    setPvCoupons(pvCoupons);
+    setPvFaceValue(pvFace);
     
     // Calculate premium/discount
     const pd = price - faceValue;
@@ -151,10 +170,92 @@ function BondPricingCalculator() {
             </select>
           </div>
           
+          <div className="input-group">
+            <label htmlFor="compounding">Compounding Convention:</label>
+            <select 
+              id="compounding" 
+              value={compoundingConvention}
+              onChange={(e) => setCompoundingConvention(e.target.value as 'discrete' | 'continuous')}
+            >
+              <option value="discrete">Discrete</option>
+              <option value="continuous">Continuous</option>
+            </select>
+          </div>
+          
           <div className="result-box">
             <h3>Bond Price: ${bondPrice.toFixed(2)}</h3>
             <p><strong>Premium/Discount:</strong> {premiumDiscount.text}</p>
             <p><strong>Current Yield:</strong> {currentYield.toFixed(2)}%</p>
+          </div>
+          
+          <div className="formula-box">
+            <h4>Pricing Formula</h4>
+            {compoundingConvention === 'discrete' ? (
+              <div>
+                <div className="formula-general">
+                  <strong>General Formula:</strong>
+                  <div className="formula-equation">
+                    P = Σ (i=1 to n) [C / (1 + y/m)^i] + F / (1 + y/m)^n
+                  </div>
+                </div>
+                
+                <div className="formula-specific">
+                  <strong>With Your Values:</strong>
+                  <div className="formula-equation">
+                    P = Σ (i=1 to {years * frequency}) [${((faceValue * couponRate / 100) / frequency).toFixed(2)} / (1 + {((yieldRate / 100) / frequency).toFixed(4)})^i] + ${faceValue} / (1 + {((yieldRate / 100) / frequency).toFixed(4)})^{years * frequency}
+                  </div>
+                  <div className="formula-breakdown">
+                    P = ${pvCoupons.toFixed(2)} (PV of coupons) + ${pvFaceValue.toFixed(2)} (PV of face value)
+                  </div>
+                  <div className="formula-result">
+                    P = ${bondPrice.toFixed(2)}
+                  </div>
+                </div>
+                
+                <div className="formula-definitions">
+                  <strong>Where:</strong>
+                  <ul>
+                    <li>C = coupon payment per period = ${((faceValue * couponRate / 100) / frequency).toFixed(2)}</li>
+                    <li>y/m = yield per period = {((yieldRate / 100) / frequency * 100).toFixed(2)}%</li>
+                    <li>n = total periods = {years * frequency}</li>
+                    <li>F = face value = ${faceValue.toFixed(2)}</li>
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div className="formula-general">
+                  <strong>General Formula:</strong>
+                  <div className="formula-equation">
+                    P = Σ (i=1 to n) [C × e^(-y × t_i)] + F × e^(-y × T)
+                  </div>
+                </div>
+                
+                <div className="formula-specific">
+                  <strong>With Your Values:</strong>
+                  <div className="formula-equation">
+                    P = Σ (i=1 to {years * frequency}) [${((faceValue * couponRate / 100) / frequency).toFixed(2)} × e^(-{(yieldRate / 100).toFixed(4)} × t_i)] + ${faceValue} × e^(-{(yieldRate / 100).toFixed(4)} × {years})
+                  </div>
+                  <div className="formula-breakdown">
+                    P = ${pvCoupons.toFixed(2)} (PV of coupons) + ${pvFaceValue.toFixed(2)} (PV of face value)
+                  </div>
+                  <div className="formula-result">
+                    P = ${bondPrice.toFixed(2)}
+                  </div>
+                </div>
+                
+                <div className="formula-definitions">
+                  <strong>Where:</strong>
+                  <ul>
+                    <li>C = coupon payment per period = ${((faceValue * couponRate / 100) / frequency).toFixed(2)}</li>
+                    <li>y = annual yield = {yieldRate.toFixed(2)}%</li>
+                    <li>t_i = time of payment i in years</li>
+                    <li>T = maturity = {years} years</li>
+                    <li>F = face value = ${faceValue.toFixed(2)}</li>
+                  </ul>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         
