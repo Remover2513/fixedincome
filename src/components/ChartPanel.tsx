@@ -216,7 +216,6 @@ export const ChartPanel: React.FC<ChartPanelProps> = ({
           displaylogo: false
         }}
         style={{ width: '100%', height: '100%' }}
-        useResizeHandler={true}
       />
     </div>
   );
