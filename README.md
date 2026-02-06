@@ -2,6 +2,10 @@
 
 An educational web application that teaches students and practitioners how to derive **zero-coupon (spot) rates** from coupon-bearing bonds using **bootstrapping** and **linear algebra**.
 
+## 🌐 Live Demo
+
+**[Try it now on GitHub Pages!](https://remover2513.github.io/fixedincome/)**
+
 ![Interactive Yield Curve Visualizer](app/public/screenshot.png)
 
 ## 🎯 What is This?
@@ -13,6 +17,11 @@ This interactive tool demonstrates the fundamental relationship between bond pri
 - Providing step-by-step explanations with student exercise mode
 
 ## 🚀 Quick Start
+
+### Option 1: Use the Live Demo
+Visit **[https://remover2513.github.io/fixedincome/](https://remover2513.github.io/fixedincome/)** - no installation required!
+
+### Option 2: Run Locally
 
 ```bash
 cd app
@@ -67,6 +76,22 @@ Perfect for:
 - Plotly.js for interactive charts
 - math.js for linear algebra
 - Vite for fast development
+
+## 🚀 Deployment
+
+This app is automatically deployed to GitHub Pages via GitHub Actions whenever changes are pushed to the `main` branch.
+
+The deployment workflow:
+1. Builds the React application with Vite
+2. Uploads the build artifacts
+3. Deploys to GitHub Pages at [https://remover2513.github.io/fixedincome/](https://remover2513.github.io/fixedincome/)
+
+To deploy manually:
+```bash
+cd app
+npm run build
+# The built files will be in app/dist/
+```
 
 ## 📄 License
 

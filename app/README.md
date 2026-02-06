@@ -193,6 +193,23 @@ The codebase includes TypeScript for type safety. To run type checking:
 npm run build
 ```
 
+## 🌐 Deployment
+
+This application is deployed to GitHub Pages and automatically updates when changes are pushed to the main branch.
+
+**Live URL**: [https://remover2513.github.io/fixedincome/](https://remover2513.github.io/fixedincome/)
+
+The deployment process:
+1. GitHub Actions workflow triggers on push to main
+2. Builds the app with `npm run build`
+3. Deploys the `dist/` folder to GitHub Pages
+
+To build locally:
+```bash
+npm run build
+npm run preview  # Preview the production build locally
+```
+
 ## 📝 Future Enhancements
 
 Potential additions:
