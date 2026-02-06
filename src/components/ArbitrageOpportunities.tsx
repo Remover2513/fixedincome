@@ -46,6 +46,7 @@ function ArbitrageOpportunities() {
   const [scenario, setScenario] = useState('noArbitrage');
   const [bonds, setBonds] = useState<Bond[]>(SCENARIOS.noArbitrage.bonds);
   const [selectedBond, setSelectedBond] = useState<string | null>(null);
+  const [nextId, setNextId] = useState(4); // Track next available ID
 
   const handleScenarioChange = (scenarioKey: string) => {
     setScenario(scenarioKey);
@@ -59,8 +60,9 @@ function ArbitrageOpportunities() {
   };
 
   const addBond = () => {
-    const newId = `B${bonds.length + 1}`;
+    const newId = `B${nextId}`;
     setBonds([...bonds, { id: newId, maturity: bonds.length + 1, couponRate: 5, marketPrice: 1000, faceValue: 1000 }]);
+    setNextId(nextId + 1);
     setScenario('custom');
   };
 

@@ -1,15 +1,16 @@
-# Interactive Yield Curve & Bootstrapping Visualizer
+# Fixed Income Securities - Interactive Learning Platform
 
-An educational web application that teaches how to derive **zero-coupon (spot) rates** from coupon-bearing bonds using **bootstrapping** and **linear algebra**.
+An educational web application for the Wharton School MBA program that teaches fixed income concepts through interactive visualizations and calculators.
 
 ## 🎯 Learning Objectives
 
 Students will learn:
-- How coupon bonds are portfolios of zero-coupon bonds
-- That bond prices are linear combinations of discount factors
-- How to solve for discount factors using bootstrapping and least squares
+- Bond pricing using present value of cash flows
+- Yield curve shapes and term structure of interest rates
+- Duration and convexity as measures of interest rate risk
+- How to derive zero-coupon (spot) rates using bootstrapping
+- How bootstrapping can reveal arbitrage opportunities
 - The relationship between discount factors, spot rates, and forward rates
-- Different compounding conventions (continuous, annual, semi-annual)
 
 ## 🚀 Quick Start
 
@@ -20,12 +21,11 @@ Students will learn:
 ### Installation & Running
 
 ```bash
-cd app
 npm install
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173`
+The application will be available at `http://localhost:5173/fixedincome/`
 
 ### Building for Production
 
@@ -36,18 +36,42 @@ npm run preview
 
 ## 📚 Features
 
-### 1. **Interactive Bond Input Panel**
-- Edit bond parameters in real-time:
-  - Maturity (years)
-  - Coupon rate (%)
-  - Payment frequency (annual, semi-annual, quarterly)
-  - Price
-  - Face value
-- Add or remove bonds dynamically
-- Load example datasets (triangular or overdetermined systems)
-- Add random noise to prices to demonstrate least squares
+### 1. **Bond Pricing Calculator**
+- Calculate bond prices using present value
+- Interactive payment timeline visualization
+- Shows premium/discount and current yield
+- Supports annual, semi-annual, and quarterly payments
 
-### 2. **Yield Curve Charts**
+### 2. **Yield Curve Visualization**
+- Explore different curve shapes (normal, inverted, flat, humped)
+- Interactive point editing
+- Statistics panel (2Y-10Y spread, curve steepness)
+- SVG-based charts with grid and labels
+
+### 3. **Duration & Convexity Calculator**
+- Calculate Macaulay and Modified duration
+- Visual price-yield relationship chart
+- Compare actual price curve vs. duration estimate
+- Demonstrates convexity effect
+
+### 4. **Interest Rate Risk Visualizer**
+- Interactive slider for rate changes (-5% to +5%)
+- Comparison table across different bond types
+- Bar chart showing price impact
+- Educational insights
+
+### 5. **Bootstrapping Visualizer**
+- Derive zero-coupon rates from coupon bonds
+- Linear algebra visualization
+- Support for triangular and overdetermined systems
+- Spot, forward, and YTM curve comparisons
+
+### 6. **Arbitrage Opportunities Module**
+- Mispricing detector using bootstrapped spot rates
+- Interactive scenario builder
+- Strip & reconstruct demo
+- Educational content on Law of One Price
+- Preset scenarios (No Arbitrage, Mispriced Bond, Multiple Mispricings)
 Toggle between three different curves:
 - **YTM Curve**: Yield-to-maturity computed from each bond's price
 - **Spot/Zero Curve**: Derived via bootstrapping or least squares
