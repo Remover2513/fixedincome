@@ -164,7 +164,7 @@ export const ChartPanel: React.FC<ChartPanelProps> = ({
         data={traces}
         layout={{
           autosize: true,
-          margin: { l: 60, r: 40, t: 80, b: 80 },
+          margin: { l: 60, r: 40, t: 80, b: 100 },
           xaxis: {
             title: { text: 'Maturity (years)' },
             gridcolor: '#eee',
@@ -181,7 +181,7 @@ export const ChartPanel: React.FC<ChartPanelProps> = ({
           showlegend: true,
           legend: {
             orientation: 'h',
-            y: -0.2,
+            y: -0.25,
             x: 0.5,
             xanchor: 'center',
             bgcolor: 'rgba(255,255,255,0)',
@@ -215,7 +215,7 @@ export const ChartPanel: React.FC<ChartPanelProps> = ({
           displayModeBar: true,
           displaylogo: false
         }}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '480px' }}
       />
     </div>
   );

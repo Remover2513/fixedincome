@@ -84,6 +84,7 @@
   background: white;
   border-radius: 4px;
   overflow: hidden;
+  min-width: 500px;
 }
 
 .bond-table th {
@@ -93,6 +94,7 @@
   text-align: left;
   font-size: 12px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .bond-table td {
@@ -123,6 +125,14 @@
   border: 1px solid #ced4da;
   border-radius: 4px;
   font-size: 13px;
+}
+
+.bond-table input {
+  min-width: 55px;
+}
+
+.bond-table select {
+  min-width: 70px;
 }
 
 .bond-table input:focus, .bond-table select:focus {

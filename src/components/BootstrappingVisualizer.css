@@ -27,7 +27,7 @@
 .intuition-section-wrapper {
   background: #fff;
   padding: 20px;
-  max-width: 1760px;
+  max-width: 1880px;
   margin: 20px auto 0;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
@@ -196,10 +196,10 @@
 
 .app-layout {
   display: grid;
-  grid-template-columns: 400px 1fr;
+  grid-template-columns: 520px 1fr;
   gap: 20px;
   padding: 20px;
-  max-width: 1800px;
+  max-width: 1920px;
   margin: 0 auto;
 }
 
@@ -215,7 +215,7 @@
 }
 
 .chart-container {
-  min-height: 480px;
+  min-height: 540px;
   background: white;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
