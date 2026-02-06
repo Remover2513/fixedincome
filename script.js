@@ -48,6 +48,14 @@ function calculateBondPrice() {
     generateTimeline(faceValue, couponPayment, years, frequency, periods);
 }
 
+/**
+ * Generates an interactive timeline visualization showing coupon payments and compounding periods
+ * @param {number} faceValue - The face value of the bond
+ * @param {number} couponPayment - The coupon payment amount per period
+ * @param {number} years - Years to maturity
+ * @param {number} frequency - Payment frequency (1=Annual, 2=Semi-Annual, 4=Quarterly)
+ * @param {number} periods - Total number of payment periods
+ */
 function generateTimeline(faceValue, couponPayment, years, frequency, periods) {
     const container = document.getElementById('timeline-visualization');
     container.innerHTML = '';
@@ -110,10 +118,10 @@ function generateTimeline(faceValue, couponPayment, years, frequency, periods) {
         container.appendChild(event);
     }
     
-    // Add principal repayment at maturity
+    // Add principal repayment at maturity (position at last period to avoid overflow)
     const maturityEvent = document.createElement('div');
     maturityEvent.className = 'timeline-event';
-    maturityEvent.style.left = '100%';
+    maturityEvent.style.left = `${(periods / periods) * 100}%`;
     
     const principalMarker = document.createElement('div');
     principalMarker.className = 'timeline-marker principal';
@@ -155,7 +163,7 @@ function generateTimeline(faceValue, couponPayment, years, frequency, periods) {
                 <div class="timeline-detail-value">$${(couponPayment * periods).toFixed(2)}</div>
             </div>
             <div class="timeline-detail-item">
-                <div class="timeline-detail-label">Compounding Periods</div>
+                <div class="timeline-detail-label">Payment Periods</div>
                 <div class="timeline-detail-value">${periods} periods (${monthsPerPeriod} months each)</div>
             </div>
             <div class="timeline-detail-item">
