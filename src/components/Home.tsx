@@ -1,7 +1,9 @@
 import './Home.css';
 
+type TabId = 'home' | 'bond-pricing' | 'yield-curve' | 'duration' | 'risk' | 'bootstrapping' | 'arbitrage';
+
 interface HomeProps {
-  setActiveTab: (tab: string) => void;
+  setActiveTab: (tab: TabId) => void;
 }
 
 function Home({ setActiveTab }: HomeProps) {

@@ -1,0 +1,398 @@
+.arbitrage {
+  max-width: 1400px;
+}
+
+.scenario-controls {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.scenario-controls h3 {
+  color: var(--wharton-navy);
+  margin-bottom: 15px;
+}
+
+.scenario-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.scenario-btn {
+  padding: 10px 20px;
+  border: 2px solid var(--wharton-navy);
+  background: white;
+  color: var(--wharton-navy);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.scenario-btn:hover:not(:disabled) {
+  background: rgba(0, 63, 135, 0.1);
+}
+
+.scenario-btn.active {
+  background: var(--wharton-navy);
+  color: white;
+}
+
+.scenario-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.arbitrage-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.bond-input-section,
+.analysis-section {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.bond-input-section h3,
+.analysis-section h3 {
+  color: var(--wharton-navy);
+  margin-bottom: 5px;
+}
+
+.section-hint {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.bond-table {
+  overflow-x: auto;
+  margin: 15px 0;
+}
+
+.bond-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bond-table th {
+  background: var(--wharton-navy);
+  color: white;
+  padding: 10px 8px;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.bond-table td {
+  padding: 8px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.bond-table input {
+  width: 100%;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+
+.bond-table tr.selected {
+  background: #e3f2fd;
+}
+
+.btn-small {
+  padding: 4px 10px;
+  margin-right: 5px;
+  border: 1px solid var(--wharton-navy);
+  background: white;
+  color: var(--wharton-navy);
+  border-radius: 3px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-small:hover {
+  background: var(--wharton-navy);
+  color: white;
+}
+
+.btn-small.btn-danger {
+  border-color: var(--wharton-red);
+  color: var(--wharton-red);
+}
+
+.btn-small.btn-danger:hover {
+  background: var(--wharton-red);
+  color: white;
+}
+
+.spot-rates-panel {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.spot-rates-panel h4 {
+  color: var(--wharton-navy);
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.rates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+}
+
+.rate-card {
+  background: white;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.rate-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+}
+
+.rate-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--wharton-navy);
+}
+
+.mispricing-table {
+  margin-top: 20px;
+}
+
+.mispricing-table h4 {
+  color: var(--wharton-navy);
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.mispricing-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.mispricing-table th {
+  background: var(--wharton-navy);
+  color: white;
+  padding: 8px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.mispricing-table td {
+  padding: 8px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.mispricing-table tr.buy {
+  background: #e8f5e9;
+}
+
+.mispricing-table tr.sell {
+  background: #ffebee;
+}
+
+.mispricing-table .negative {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.mispricing-table .positive {
+  color: #f44336;
+  font-weight: 600;
+}
+
+.action-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.action-badge.buy {
+  background: #4caf50;
+  color: white;
+}
+
+.action-badge.sell {
+  background: #f44336;
+  color: white;
+}
+
+.action-badge.fair {
+  background: #9e9e9e;
+  color: white;
+}
+
+.strip-reconstruct-demo {
+  background: white;
+  border: 2px solid var(--wharton-gold);
+  border-radius: 8px;
+  padding: 25px;
+  margin: 30px 0;
+}
+
+.strip-reconstruct-demo h3 {
+  color: var(--wharton-navy);
+  margin-bottom: 5px;
+}
+
+.strip-reconstruct-demo > p {
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.demo-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.cash-flows h4,
+.demo-summary h4 {
+  color: var(--wharton-navy);
+  margin-bottom: 15px;
+}
+
+.cash-flow-item {
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 60px 100px 1fr 100px;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.flow-year {
+  font-weight: 600;
+  color: var(--wharton-navy);
+}
+
+.flow-amount {
+  font-weight: 600;
+}
+
+.flow-discount {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.flow-pv {
+  font-weight: 600;
+  color: var(--wharton-red);
+  text-align: right;
+}
+
+.summary-card {
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.summary-row.highlight {
+  border-bottom: none;
+  margin-top: 10px;
+  padding-top: 15px;
+  border-top: 2px solid var(--wharton-navy);
+  font-size: 1.1rem;
+}
+
+.summary-action {
+  margin-top: 15px;
+  padding: 15px;
+  background: white;
+  border-radius: 6px;
+  border-left: 4px solid var(--wharton-gold);
+}
+
+.summary-action p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.educational-content {
+  margin-top: 30px;
+}
+
+.educational-content h3 {
+  color: var(--wharton-navy);
+  margin-bottom: 20px;
+}
+
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.concept-card {
+  background: white;
+  border-left: 4px solid var(--wharton-navy);
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.concept-card h4 {
+  color: var(--wharton-navy);
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.concept-card p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1200px) {
+  .arbitrage-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .demo-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .cash-flow-item {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .flow-pv {
+    text-align: center;
+  }
+}
