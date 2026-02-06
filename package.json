@@ -1,0 +1,26 @@
+{
+  "name": "fixed-income-securities",
+  "version": "1.0.0",
+  "description": "Interactive educational website for Wharton School Fixed Income Securities MBA course",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "dev": "python3 -m http.server 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Remover2513/fixedincome.git"
+  },
+  "keywords": [
+    "fixed-income",
+    "bonds",
+    "finance",
+    "education",
+    "wharton",
+    "interactive",
+    "calculator"
+  ],
+  "author": "Wharton School",
+  "license": "MIT",
+  "homepage": "https://remover2513.github.io/fixedincome/"
+}

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Income Securities - Interactive Learning</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1>Fixed Income Securities</h1>
+                <p class="subtitle">Wharton School MBA Course - Interactive Examples</p>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#bond-pricing">Bond Pricing</a></li>
+                    <li><a href="#yield-curve">Yield Curve</a></li>
+                    <li><a href="#duration">Duration & Convexity</a></li>
+                    <li><a href="#risk">Interest Rate Risk</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="section">
+            <div class="container">
+                <h2>Welcome to Fixed Income Securities Interactive Learning</h2>
+                <p>This site provides interactive examples, charts, and diagrams to help you develop intuition about fixed income securities concepts taught in the Wharton School MBA program.</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>📊 Bond Pricing Calculator</h3>
+                        <p>Calculate bond prices and understand the relationship between coupon rates, yield, and maturity.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📈 Yield Curve Visualization</h3>
+                        <p>Explore different yield curve shapes and understand term structure of interest rates.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⏱️ Duration & Convexity</h3>
+                        <p>Interactive tools to understand price sensitivity to interest rate changes.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⚠️ Interest Rate Risk</h3>
+                        <p>Visualize how bond prices change with interest rate movements.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bond Pricing Section -->
+        <section id="bond-pricing" class="section">
+            <div class="container">
+                <h2>Bond Pricing Calculator</h2>
+                <p>Adjust the parameters below to see how bond prices are calculated using present value of cash flows.</p>
+                
+                <div class="calculator-container">
+                    <div class="input-group">
+                        <label for="face-value">Face Value ($):</label>
+                        <input type="number" id="face-value" value="1000" min="100" step="100">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="coupon-rate">Coupon Rate (%):</label>
+                        <input type="number" id="coupon-rate" value="5" min="0" max="20" step="0.25">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="yield-rate">Yield to Maturity (%):</label>
+                        <input type="number" id="yield-rate" value="6" min="0" max="20" step="0.25">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="years">Years to Maturity:</label>
+                        <input type="number" id="years" value="10" min="1" max="30" step="1">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="frequency">Payment Frequency:</label>
+                        <select id="frequency">
+                            <option value="1">Annual</option>
+                            <option value="2" selected>Semi-Annual</option>
+                            <option value="4">Quarterly</option>
+                        </select>
+                    </div>
+                    
+                    <button onclick="calculateBondPrice()" class="calculate-btn">Calculate Price</button>
+                    
+                    <div id="bond-result" class="result-box">
+                        <h3>Bond Price: <span id="bond-price">$0.00</span></h3>
+                        <p>Premium/Discount: <span id="premium-discount">-</span></p>
+                        <p>Current Yield: <span id="current-yield">-</span></p>
+                    </div>
+                    
+                    <div id="timeline-container" class="timeline-container">
+                        <h3>Coupon Payment Timeline</h3>
+                        <div id="timeline-visualization" class="timeline-visualization"></div>
+                        <div id="timeline-legend" class="timeline-legend">
+                            <div class="legend-item">
+                                <span class="legend-marker coupon-marker"></span>
+                                <span>Coupon Payment</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-marker principal-marker"></span>
+                                <span>Principal Repayment</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-marker compounding-marker"></span>
+                                <span>Compounding Period</span>
+                            </div>
+                        </div>
+                        <div id="timeline-details" class="timeline-details"></div>
+                    </div>
+                </div>
+                
+                <div class="explanation">
+                    <h3>Key Concepts:</h3>
+                    <ul>
+                        <li><strong>When YTM > Coupon Rate:</strong> Bond trades at a discount (below par)</li>
+                        <li><strong>When YTM = Coupon Rate:</strong> Bond trades at par (face value)</li>
+                        <li><strong>When YTM < Coupon Rate:</strong> Bond trades at a premium (above par)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Yield Curve Section -->
+        <section id="yield-curve" class="section">
+            <div class="container">
+                <h2>Yield Curve Visualization</h2>
+                <p>The yield curve shows the relationship between bond yields and time to maturity. Enable point editing to click and adjust yields!</p>
+                
+                <div class="chart-controls">
+                    <button onclick="setYieldCurve('normal')" class="curve-btn active" id="btn-normal">Normal</button>
+                    <button onclick="setYieldCurve('inverted')" class="curve-btn" id="btn-inverted">Inverted</button>
+                    <button onclick="setYieldCurve('flat')" class="curve-btn" id="btn-flat">Flat</button>
+                    <button onclick="setYieldCurve('humped')" class="curve-btn" id="btn-humped">Humped</button>
+                    <button onclick="setYieldCurve('custom')" class="curve-btn" id="btn-custom">Custom</button>
+                </div>
+
+                <div class="interactive-controls">
+                    <label>
+                        <input type="checkbox" id="enableEditing" onchange="toggleEditing()">
+                        Enable Point Editing (click points to adjust)
+                    </label>
+                    <label>
+                        <input type="checkbox" id="showGrid" checked onchange="updateYieldCurve()">
+                        Show Grid
+                    </label>
+                    <label>
+                        <input type="checkbox" id="showValues" checked onchange="updateYieldCurve()">
+                        Show Values
+                    </label>
+                    <button onclick="compareMode()" class="curve-btn" id="btn-compare">Compare Curves</button>
+                </div>
+                
+                <div class="chart-container" id="yield-chart-wrapper">
+                    <svg id="yieldCurveChart" viewBox="0 0 800 400"></svg>
+                    <div id="yield-tooltip" class="chart-tooltip"></div>
+                </div>
+
+                <div id="yield-stats" class="yield-statistics">
+                    <h3>Current Curve Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Curve Type:</span>
+                            <span class="stat-value" id="curve-type">Normal</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">2Y-10Y Spread:</span>
+                            <span class="stat-value" id="spread-2-10">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Average Yield:</span>
+                            <span class="stat-value" id="avg-yield">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Steepness:</span>
+                            <span class="stat-value" id="steepness">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="explanation">
+                    <h3>Yield Curve Shapes:</h3>
+                    <ul>
+                        <li><strong>Normal (Upward Sloping):</strong> Longer maturities have higher yields, typical in healthy economy</li>
+                        <li><strong>Inverted (Downward Sloping):</strong> Shorter maturities have higher yields, may signal recession</li>
+                        <li><strong>Flat:</strong> Similar yields across maturities, transition period</li>
+                        <li><strong>Humped:</strong> Medium-term yields are highest, less common</li>
+                        <li><strong>Custom:</strong> Create your own curve by editing point values</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Duration & Convexity Section -->
+        <section id="duration" class="section">
+            <div class="container">
+                <h2>Duration & Convexity</h2>
+                <p>Duration measures price sensitivity to interest rate changes. Convexity measures the curvature of the price-yield relationship.</p>
+                
+                <div class="calculator-container">
+                    <div class="input-group">
+                        <label for="dur-face-value">Face Value ($):</label>
+                        <input type="number" id="dur-face-value" value="1000" min="100" step="100">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="dur-coupon-rate">Coupon Rate (%):</label>
+                        <input type="number" id="dur-coupon-rate" value="6" min="0" max="20" step="0.25">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="dur-yield-rate">Yield to Maturity (%):</label>
+                        <input type="number" id="dur-yield-rate" value="6" min="0" max="20" step="0.25">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="dur-years">Years to Maturity:</label>
+                        <input type="number" id="dur-years" value="5" min="1" max="30" step="1">
+                    </div>
+                    
+                    <button onclick="calculateDuration()" class="calculate-btn">Calculate Duration</button>
+                    
+                    <div id="duration-result" class="result-box">
+                        <h3>Macaulay Duration: <span id="macaulay-duration">0.00</span> years</h3>
+                        <p>Modified Duration: <span id="modified-duration">0.00</span> years</p>
+                        <p>Price Change for 1% rate increase: <span id="price-change-estimate">0.00%</span></p>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <svg id="durationChart" viewBox="0 0 800 400"></svg>
+                    <div id="duration-tooltip" class="chart-tooltip"></div>
+                </div>
+                
+                <div class="explanation">
+                    <h3>Key Concepts:</h3>
+                    <ul>
+                        <li><strong>Macaulay Duration:</strong> Weighted average time to receive cash flows</li>
+                        <li><strong>Modified Duration:</strong> Price sensitivity measure (% change in price per 1% change in yield)</li>
+                        <li><strong>Higher Duration:</strong> Greater price sensitivity to interest rate changes</li>
+                        <li><strong>Convexity:</strong> Accounts for the curvature in the price-yield relationship</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interest Rate Risk Section -->
+        <section id="risk" class="section">
+            <div class="container">
+                <h2>Interest Rate Risk</h2>
+                <p>Visualize how bond prices change with interest rate movements.</p>
+                
+                <div class="risk-controls">
+                    <div class="input-group">
+                        <label for="risk-rate-change">Interest Rate Change (%):</label>
+                        <input type="range" id="risk-rate-change" min="-5" max="5" step="0.25" value="0">
+                        <span id="rate-change-value">0.00%</span>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <svg id="riskChart" viewBox="0 0 800 400"></svg>
+                    <div id="risk-tooltip" class="chart-tooltip"></div>
+                </div>
+                
+                <div class="comparison-table">
+                    <h3>Bond Price Impact Comparison</h3>
+                    <table id="risk-table">
+                        <thead>
+                            <tr>
+                                <th>Bond Type</th>
+                                <th>Original Price</th>
+                                <th>New Price</th>
+                                <th>Price Change</th>
+                                <th>% Change</th>
+                            </tr>
+                        </thead>
+                        <tbody id="risk-table-body">
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="explanation">
+                    <h3>Key Insights:</h3>
+                    <ul>
+                        <li><strong>Inverse Relationship:</strong> Bond prices fall when interest rates rise, and vice versa</li>
+                        <li><strong>Longer Maturity Bonds:</strong> More sensitive to interest rate changes</li>
+                        <li><strong>Lower Coupon Bonds:</strong> More sensitive to interest rate changes</li>
+                        <li><strong>Price Asymmetry:</strong> Price increase from rate decrease > Price decrease from rate increase (due to convexity)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Fixed Income Securities Interactive Learning - Wharton School MBA Course</p>
+            <p>Educational purposes only - Not investment advice</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
