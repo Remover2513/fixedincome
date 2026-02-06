@@ -156,7 +156,7 @@ This site is for educational purposes only. It is not investment advice. All cal
 
 ## 📄 License
 
-Educational use - Wharton School MBA Program
+MIT License - Educational use for Wharton School MBA Program
 
 ## 🏫 About
 
