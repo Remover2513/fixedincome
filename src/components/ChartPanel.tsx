@@ -215,7 +215,7 @@ export const ChartPanel: React.FC<ChartPanelProps> = ({
           displayModeBar: true,
           displaylogo: false
         }}
-        style={{ width: '100%', height: '480px' }}
+        style={{ width: '100%', height: '540px' }}
       />
     </div>
   );
