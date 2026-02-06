@@ -248,7 +248,7 @@ function BondPricingCalculator() {
                   <strong>Where:</strong>
                   <ul>
                     <li>C = coupon payment per period = ${((faceValue * couponRate / 100) / frequency).toFixed(2)}</li>
-                    <li>y = annual yield = {(yieldRate).toFixed(2)}%</li>
+                    <li>y = annual yield = {yieldRate.toFixed(2)}%</li>
                     <li>t_i = time of payment i in years</li>
                     <li>T = maturity = {years} years</li>
                     <li>F = face value = ${faceValue.toFixed(2)}</li>
