@@ -2,7 +2,11 @@
 
 An interactive educational website for the Wharton School MBA course "Fixed Income Securities." This site provides interactive examples, charts, and diagrams to help students develop intuition about fixed income securities concepts.
 
-> **⚠️ DEPLOYMENT NOTE:** If you're seeing a blank page at the GitHub Pages URL, this means the Pull Request has not been merged to the `main` branch yet. See [DEPLOYMENT.md](DEPLOYMENT.md) for instructions on how to deploy the site.
+> **⚠️ DEPLOYMENT NOTE:** If you're seeing a blank page at the GitHub Pages URL, this means the Pull Request has not been merged to the `main` branch yet. 
+> 
+> **Quick Fix:** See [QUICKFIX.md](QUICKFIX.md) for step-by-step instructions (takes 2 minutes!)
+> 
+> **Detailed Guide:** See [DEPLOYMENT.md](DEPLOYMENT.md) for comprehensive troubleshooting.
 
 ## 🎯 Purpose
 

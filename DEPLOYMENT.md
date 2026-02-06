@@ -63,6 +63,10 @@ python3 -m http.server 8080
 
 ### Expected Result
 Once deployed correctly, you'll see a professional educational website with:
+
+![Fixed Income Securities Platform](https://github.com/user-attachments/assets/de2fa58e-4d39-4274-96b6-a4516c0ad230)
+
+Features include:
 - Interactive Bond Pricing Calculator
 - Yield Curve Visualization (Normal, Inverted, Flat, Humped)
 - Duration & Convexity Calculator
