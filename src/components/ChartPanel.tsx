@@ -58,8 +58,20 @@ export const ChartPanel: React.FC<ChartPanelProps> = ({
       type: 'scatter',
       mode: 'lines+markers',
       name: 'YTM Curve',
-      line: { color: '#007bff', width: 2 },
-      marker: { size: 8 },
+      line: { 
+        color: '#4361ee', 
+        width: 3,
+        shape: 'spline'
+      },
+      marker: { 
+        size: 10,
+        symbol: 'circle',
+        color: 'white',
+        line: {
+          color: '#4361ee',
+          width: 2
+        }
+      },
       hovertemplate: 'Maturity: %{x:.2f}y<br>YTM: %{y:.3f}%<extra></extra>'
     } as Plotly.Data);
   }
@@ -71,8 +83,22 @@ export const ChartPanel: React.FC<ChartPanelProps> = ({
       type: 'scatter',
       mode: 'lines+markers',
       name: 'Spot/Zero Curve',
-      line: { color: '#28a745', width: 2 },
-      marker: { size: 8 },
+      line: { 
+        color: '#2ec4b6', 
+        width: 3,
+        shape: 'spline'
+      },
+      marker: { 
+        size: 10,
+        symbol: 'diamond',
+        color: 'white',
+        line: {
+          color: '#2ec4b6',
+          width: 2
+        }
+      },
+      fill: 'tozeroy',
+      fillcolor: 'rgba(46, 196, 182, 0.1)',
       hovertemplate: 'Maturity: %{x:.2f}y<br>Spot Rate: %{y:.3f}%<extra></extra>'
     } as Plotly.Data);
   }
@@ -84,8 +110,20 @@ export const ChartPanel: React.FC<ChartPanelProps> = ({
       type: 'scatter',
       mode: 'lines+markers',
       name: 'Forward Curve',
-      line: { color: '#fd7e14', width: 2, dash: 'dash' },
-      marker: { size: 8 },
+      line: { 
+        color: '#e76f51', 
+        width: 3,
+        shape: 'spline'
+      },
+      marker: { 
+        size: 10,
+        symbol: 'triangle-up',
+        color: 'white',
+        line: {
+          color: '#e76f51',
+          width: 2
+        }
+      },
       hovertemplate: 'Maturity: %{x:.2f}y<br>Forward Rate: %{y:.3f}%<extra></extra>'
     } as Plotly.Data);
   }
@@ -126,26 +164,51 @@ export const ChartPanel: React.FC<ChartPanelProps> = ({
         data={traces}
         layout={{
           autosize: true,
-          margin: { l: 60, r: 40, t: 40, b: 60 },
+          margin: { l: 60, r: 40, t: 80, b: 80 },
           xaxis: {
             title: { text: 'Maturity (years)' },
-            gridcolor: '#e0e0e0'
+            gridcolor: '#eee',
+            griddash: 'dot',
+            zeroline: false
           },
           yaxis: {
             title: { text: 'Yield (%)' },
-            gridcolor: '#e0e0e0'
+            gridcolor: '#eee',
+            griddash: 'dot',
+            zeroline: false
           },
-          hovermode: 'closest',
+          hovermode: 'x unified',
           showlegend: true,
           legend: {
-            x: 0.02,
-            y: 0.98,
-            bgcolor: 'rgba(255,255,255,0.8)',
-            bordercolor: '#ccc',
-            borderwidth: 1
+            orientation: 'h',
+            y: -0.2,
+            x: 0.5,
+            xanchor: 'center',
+            bgcolor: 'rgba(255,255,255,0)',
+            borderwidth: 0
           },
+          annotations: [
+            {
+              text: 'Spot rates derived via bootstrapping from coupon bond prices',
+              xref: 'paper',
+              yref: 'paper',
+              x: 0.5,
+              y: 1.05,
+              xanchor: 'center',
+              yanchor: 'bottom',
+              showarrow: false,
+              font: {
+                size: 12,
+                color: '#666'
+              }
+            }
+          ],
           paper_bgcolor: 'white',
-          plot_bgcolor: 'white'
+          plot_bgcolor: 'white',
+          transition: {
+            duration: 500,
+            easing: 'cubic-in-out'
+          }
         }}
         config={{
           responsive: true,

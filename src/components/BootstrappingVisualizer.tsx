@@ -16,6 +16,7 @@ function BootstrappingVisualizer() {
   const [showYTM, setShowYTM] = useState(true);
   const [showSpot, setShowSpot] = useState(true);
   const [showForward, setShowForward] = useState(false);
+  const [isIntuitionExpanded, setIsIntuitionExpanded] = useState(true);
 
   // Compute all derived values
   const cashflowMatrix = useMemo(() => buildCashflowMatrix(bonds), [bonds]);
@@ -62,9 +63,91 @@ function BootstrappingVisualizer() {
       <header className="app-header">
         <h1>Interactive Yield Curve & Bootstrapping Visualizer</h1>
         <p className="subtitle">
-          Learn how to derive zero-coupon (spot) rates from coupon-bearing bonds using linear algebra
+          Discover how market bond prices reveal the hidden zero-coupon yield curve — one maturity at a time
         </p>
       </header>
+
+      {/* Building Intuition Section */}
+      <div className="intuition-section-wrapper">
+        <div className="intuition-section">
+          <div className="intuition-header" onClick={() => setIsIntuitionExpanded(!isIntuitionExpanded)}>
+            <div className="intuition-title">
+              <span className="intuition-icon">💡</span>
+              <h2>Building Intuition</h2>
+            </div>
+            <span className={`expand-icon ${isIntuitionExpanded ? 'expanded' : ''}`}>▼</span>
+          </div>
+          
+          {isIntuitionExpanded && (
+            <div className="intuition-content">
+              <div className="analogy-section">
+                <h3>The Recipe Analogy</h3>
+                <p>
+                  Imagine you go to a bakery and see prices for different cakes: a plain vanilla cake, 
+                  a chocolate cake, and a cake that combines vanilla and chocolate layers.
+                </p>
+                <p>
+                  Each cake is made of known quantities of "ingredients" (flour, eggs, vanilla extract, 
+                  chocolate, etc.), and you can see the final price of each cake.
+                </p>
+                <p className="highlight">
+                  <strong>Bootstrapping is like figuring out the cost of each individual ingredient 
+                  by looking at the prices of the finished cakes.</strong>
+                </p>
+                <ul>
+                  <li>The <strong>simplest cake</strong> (plain vanilla) uses only one ingredient you 
+                  don't know → you can solve for it directly.</li>
+                  <li>The <strong>next cake</strong> uses that ingredient plus one more unknown → now 
+                  you can solve for the second ingredient.</li>
+                  <li>You keep <strong>"bootstrapping"</strong> your way up, using what you already 
+                  know to solve for the next unknown.</li>
+                </ul>
+                <p>
+                  In fixed income: the "cakes" are coupon bonds with known market prices, the "ingredients" 
+                  are discount factors (the price of $1 at each future time), and "figuring out ingredient 
+                  costs" is deriving the zero-coupon yield curve.
+                </p>
+              </div>
+
+              <div className="mapping-section">
+                <h3>How it Maps to Finance</h3>
+                <div className="mapping-table">
+                  <div className="mapping-row mapping-header">
+                    <div className="mapping-col">Bakery Concept</div>
+                    <div className="mapping-col">Fixed Income Equivalent</div>
+                  </div>
+                  <div className="mapping-row">
+                    <div className="mapping-col">🎂 Cakes</div>
+                    <div className="mapping-col">Coupon Bonds</div>
+                  </div>
+                  <div className="mapping-row">
+                    <div className="mapping-col">🧂 Ingredient Prices</div>
+                    <div className="mapping-col">Discount Factors</div>
+                  </div>
+                  <div className="mapping-row">
+                    <div className="mapping-col">📋 Recipe (Quantities)</div>
+                    <div className="mapping-col">Cashflow Matrix</div>
+                  </div>
+                  <div className="mapping-row">
+                    <div className="mapping-col">💰 Final Cake Prices</div>
+                    <div className="mapping-col">Market Bond Prices</div>
+                  </div>
+                  <div className="mapping-row">
+                    <div className="mapping-col">🔍 Solving Ingredient Costs</div>
+                    <div className="mapping-col">Bootstrapping Spot Rates</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="key-takeaway">
+                <strong>Key Takeaway:</strong> Just as you solve for ingredient costs one at a time 
+                starting with the simplest recipe, bootstrapping derives spot rates one maturity at 
+                a time, starting with the shortest-maturity bond.
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
 
       <div className="app-layout">
         <div className="left-panel">
