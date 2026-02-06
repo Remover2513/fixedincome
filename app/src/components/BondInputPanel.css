@@ -1,0 +1,132 @@
+.bond-input-panel {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.bond-input-panel h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary, .btn-danger, .btn-add {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #545b62;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #c82333;
+}
+
+.btn-danger:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-add {
+  background: #28a745;
+  color: white;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-add:hover {
+  background: #218838;
+}
+
+.bond-table-container {
+  overflow-x: auto;
+  margin-bottom: 10px;
+}
+
+.bond-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bond-table th {
+  background: #343a40;
+  color: white;
+  padding: 12px 8px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.bond-table td {
+  padding: 8px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.bond-table tr:last-child td {
+  border-bottom: none;
+}
+
+.bond-table tr.selected {
+  background: #e7f3ff;
+}
+
+.bond-table tr:hover {
+  background: #f1f3f5;
+  cursor: pointer;
+}
+
+.bond-table tr.selected:hover {
+  background: #d0e8ff;
+}
+
+.bond-table input, .bond-table select {
+  width: 100%;
+  padding: 4px 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.bond-table input:focus, .bond-table select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
+}
