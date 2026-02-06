@@ -43,6 +43,127 @@ function calculateBondPrice() {
     }
     document.getElementById('premium-discount').textContent = pdText;
     document.getElementById('current-yield').textContent = `${currentYield.toFixed(2)}%`;
+    
+    // Generate timeline visualization
+    generateTimeline(faceValue, couponPayment, years, frequency, periods);
+}
+
+function generateTimeline(faceValue, couponPayment, years, frequency, periods) {
+    const container = document.getElementById('timeline-visualization');
+    container.innerHTML = '';
+    
+    // Create timeline track
+    const track = document.createElement('div');
+    track.className = 'timeline-track';
+    container.appendChild(track);
+    
+    // Get frequency description
+    const frequencyText = {
+        1: 'Annual',
+        2: 'Semi-Annual',
+        4: 'Quarterly'
+    };
+    
+    const periodsPerYear = frequency;
+    const monthsPerPeriod = 12 / frequency;
+    
+    // Add compounding period indicators
+    for (let i = 0; i < periods; i++) {
+        const startPercent = (i / periods) * 100;
+        const endPercent = ((i + 1) / periods) * 100;
+        const width = endPercent - startPercent;
+        
+        const compoundingIndicator = document.createElement('div');
+        compoundingIndicator.className = 'timeline-compounding-indicator';
+        compoundingIndicator.style.left = `${startPercent}%`;
+        compoundingIndicator.style.width = `${width}%`;
+        compoundingIndicator.title = `Compounding Period ${i + 1}`;
+        track.appendChild(compoundingIndicator);
+    }
+    
+    // Add coupon payment events
+    for (let i = 1; i <= periods; i++) {
+        const position = (i / periods) * 100;
+        const timeInYears = i / frequency;
+        
+        const event = document.createElement('div');
+        event.className = 'timeline-event';
+        event.style.left = `${position}%`;
+        
+        const marker = document.createElement('div');
+        marker.className = 'timeline-marker coupon';
+        
+        const label = document.createElement('div');
+        label.className = 'timeline-label';
+        label.textContent = `${timeInYears.toFixed(2)}Y`;
+        
+        const amount = document.createElement('div');
+        amount.className = 'timeline-amount';
+        amount.textContent = `$${couponPayment.toFixed(2)}`;
+        
+        event.appendChild(marker);
+        event.appendChild(label);
+        event.appendChild(amount);
+        
+        event.title = `Period ${i}: Coupon payment of $${couponPayment.toFixed(2)} at year ${timeInYears.toFixed(2)}`;
+        
+        container.appendChild(event);
+    }
+    
+    // Add principal repayment at maturity
+    const maturityEvent = document.createElement('div');
+    maturityEvent.className = 'timeline-event';
+    maturityEvent.style.left = '100%';
+    
+    const principalMarker = document.createElement('div');
+    principalMarker.className = 'timeline-marker principal';
+    
+    const principalLabel = document.createElement('div');
+    principalLabel.className = 'timeline-label';
+    principalLabel.textContent = `${years}Y`;
+    
+    const principalAmount = document.createElement('div');
+    principalAmount.className = 'timeline-amount';
+    principalAmount.textContent = `$${faceValue.toFixed(2)}`;
+    
+    maturityEvent.appendChild(principalMarker);
+    maturityEvent.appendChild(principalLabel);
+    maturityEvent.appendChild(principalAmount);
+    maturityEvent.title = `Maturity: Principal repayment of $${faceValue.toFixed(2)}`;
+    
+    container.appendChild(maturityEvent);
+    
+    // Update timeline details
+    const detailsContainer = document.getElementById('timeline-details');
+    detailsContainer.innerHTML = `
+        <h4>Payment Schedule Summary</h4>
+        <div class="timeline-details-grid">
+            <div class="timeline-detail-item">
+                <div class="timeline-detail-label">Payment Frequency</div>
+                <div class="timeline-detail-value">${frequencyText[frequency]}</div>
+            </div>
+            <div class="timeline-detail-item">
+                <div class="timeline-detail-label">Total Payments</div>
+                <div class="timeline-detail-value">${periods} payments</div>
+            </div>
+            <div class="timeline-detail-item">
+                <div class="timeline-detail-label">Coupon per Payment</div>
+                <div class="timeline-detail-value">$${couponPayment.toFixed(2)}</div>
+            </div>
+            <div class="timeline-detail-item">
+                <div class="timeline-detail-label">Total Coupons</div>
+                <div class="timeline-detail-value">$${(couponPayment * periods).toFixed(2)}</div>
+            </div>
+            <div class="timeline-detail-item">
+                <div class="timeline-detail-label">Compounding Periods</div>
+                <div class="timeline-detail-value">${periods} periods (${monthsPerPeriod} months each)</div>
+            </div>
+            <div class="timeline-detail-item">
+                <div class="timeline-detail-label">Final Principal</div>
+                <div class="timeline-detail-value">$${faceValue.toFixed(2)}</div>
+            </div>
+        </div>
+    `;
 }
 
 // Initialize bond calculator on page load
