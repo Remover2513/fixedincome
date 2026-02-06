@@ -74,7 +74,6 @@ function generateTimeline(faceValue, couponPayment, years, frequency, periods) {
         4: 'Quarterly'
     };
     
-    const periodsPerYear = frequency;
     const monthsPerPeriod = 12 / frequency;
     
     // Add compounding period indicators
@@ -199,7 +198,7 @@ function setYieldCurve(curveType) {
     currentYields = [...curvePresets[curveType]];
     
     // Update button states
-    document.querySelectorAll('.curve-btn').forEach(btn => {
+    document.querySelectorAll('.chart-controls .curve-btn').forEach(btn => {
         btn.classList.remove('active');
     });
     document.getElementById(`btn-${curveType}`).classList.add('active');

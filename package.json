@@ -2,10 +2,10 @@
   "name": "fixed-income-securities",
   "version": "1.0.0",
   "description": "Interactive educational website for Wharton School Fixed Income Securities MBA course",
-  "main": "index.html",
   "scripts": {
-    "start": "python3 -m http.server 8080",
-    "dev": "python3 -m http.server 8080"
+    "start": "cd app && npm run dev",
+    "dev": "cd app && npm run dev",
+    "build": "cd app && npm run build"
   },
   "repository": {
     "type": "git",
