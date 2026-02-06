@@ -1,0 +1,192 @@
+.bond-pricing {
+  max-width: 1400px;
+}
+
+.calculator-grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.input-section {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+}
+
+.timeline-section {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.timeline-section h3 {
+  color: var(--wharton-navy);
+  margin-bottom: 5px;
+}
+
+.timeline-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+/* Timeline Visualization */
+.timeline-visualization {
+  margin: 30px 0;
+  min-height: 150px;
+}
+
+.timeline-track {
+  position: relative;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent 39px, #003f87 39px, #003f87 41px, transparent 41px);
+  margin: 20px 0;
+}
+
+.timeline-event {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.timeline-marker {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--wharton-red);
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 0.2s ease;
+}
+
+.timeline-event.principal .timeline-marker {
+  width: 20px;
+  height: 20px;
+  background: var(--wharton-gold);
+  top: 30px;
+}
+
+.timeline-event:hover .timeline-marker {
+  transform: translateX(-50%) scale(1.3);
+}
+
+.timeline-label {
+  position: absolute;
+  top: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--wharton-navy);
+  white-space: nowrap;
+}
+
+.timeline-legend {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.legend-marker {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.legend-marker.coupon {
+  background: var(--wharton-red);
+}
+
+.legend-marker.principal {
+  background: var(--wharton-gold);
+  width: 16px;
+  height: 16px;
+}
+
+/* Payment Schedule */
+.payment-schedule {
+  margin-top: 30px;
+}
+
+.payment-schedule h4 {
+  color: var(--wharton-navy);
+  margin-bottom: 15px;
+}
+
+.schedule-table {
+  overflow-x: auto;
+}
+
+.schedule-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.schedule-table th {
+  background: var(--wharton-navy);
+  color: white;
+  padding: 10px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.schedule-table td {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.schedule-table tr:last-child td {
+  border-bottom: none;
+}
+
+.schedule-table tr:hover {
+  background: #f8f9fa;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .calculator-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .input-section {
+    order: 1;
+  }
+  
+  .timeline-section {
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline-track {
+    height: 100px;
+  }
+  
+  .timeline-label {
+    font-size: 0.65rem;
+  }
+  
+  .timeline-legend {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}

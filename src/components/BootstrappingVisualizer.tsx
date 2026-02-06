@@ -1,15 +1,15 @@
 import { useState, useMemo } from 'react';
-import { BondInputPanel } from './components/BondInputPanel';
-import { ChartPanel } from './components/ChartPanel';
-import { LinearAlgebraPanel } from './components/LinearAlgebraPanel';
-import { buildCashflowMatrix } from './utils/cashflows';
-import { solveDiscountFactors, leastSquaresSolve, generateBootstrapSteps } from './utils/discountFactors';
-import { discountFactorsToSpotRates, calculateYTM, spotRatesToForwardRates } from './utils/yields';
-import { EXAMPLE_DATASET_TRIANGULAR, EXAMPLE_DATASET_OVERDETERMINED, addNoiseToPrices } from './utils/exampleData';
-import type { Bond, CompoundingConvention, YTMResult } from './types';
-import './App.css';
+import { BondInputPanel } from './BondInputPanel';
+import { ChartPanel } from './ChartPanel';
+import { LinearAlgebraPanel } from './LinearAlgebraPanel';
+import { buildCashflowMatrix } from '../utils/cashflows';
+import { solveDiscountFactors, leastSquaresSolve, generateBootstrapSteps } from '../utils/discountFactors';
+import { discountFactorsToSpotRates, calculateYTM, spotRatesToForwardRates } from '../utils/yields';
+import { EXAMPLE_DATASET_TRIANGULAR, EXAMPLE_DATASET_OVERDETERMINED, addNoiseToPrices } from '../utils/exampleData';
+import type { Bond, CompoundingConvention, YTMResult } from '../types';
+import './BootstrappingVisualizer.css';
 
-function App() {
+function BootstrappingVisualizer() {
   const [bonds, setBonds] = useState<Bond[]>(EXAMPLE_DATASET_TRIANGULAR);
   const [selectedBondId, setSelectedBondId] = useState<string | null>(null);
   const [compoundingConvention, setCompoundingConvention] = useState<CompoundingConvention>('continuous');
@@ -112,4 +112,4 @@ function App() {
   );
 }
 
-export default App;
+export default BootstrappingVisualizer;
