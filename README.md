@@ -2,6 +2,8 @@
 
 An interactive educational website for the Wharton School MBA course "Fixed Income Securities." This site provides interactive examples, charts, and diagrams to help students develop intuition about fixed income securities concepts.
 
+> **⚠️ DEPLOYMENT NOTE:** If you're seeing a blank page at the GitHub Pages URL, this means the Pull Request has not been merged to the `main` branch yet. See [DEPLOYMENT.md](DEPLOYMENT.md) for instructions on how to deploy the site.
+
 ## 🎯 Purpose
 
 This platform offers hands-on tools to understand key fixed income concepts:
@@ -13,16 +15,30 @@ This platform offers hands-on tools to understand key fixed income concepts:
 
 ## 🚀 Getting Started
 
+### ⚠️ First Time Setup
+
+**If the GitHub Pages site shows a blank page:**
+This repository is currently on a feature branch. To deploy the website, you need to either:
+1. **Merge this Pull Request to `main`** (recommended), or
+2. **Configure GitHub Pages** to serve from this branch
+
+See detailed instructions in [DEPLOYMENT.md](DEPLOYMENT.md).
+
 ### Option 1: View Online (GitHub Pages)
 
 Visit the live site at: `https://remover2513.github.io/fixedincome/`
 
-### Option 2: Run Locally
+**Note:** The site will only work after the PR is merged to `main` or GitHub Pages is configured to use the feature branch.
+
+### Option 2: Run Locally (Works Immediately)
 
 1. Clone this repository:
 ```bash
 git clone https://github.com/Remover2513/fixedincome.git
 cd fixedincome
+
+# If the PR hasn't been merged yet, checkout the feature branch:
+git checkout copilot/add-interactive-examples-charts
 ```
 
 2. Open `index.html` in your web browser:
