@@ -54,7 +54,7 @@ let currentCurveType = 'normal';
 let currentYields = [];
 let currentMaturities = [0.25, 0.5, 1, 2, 3, 5, 7, 10, 20, 30];
 let editingEnabled = false;
-let compareMode = false;
+let isCompareMode = false;
 let savedCurves = [];
 
 const curvePresets = {
@@ -83,11 +83,11 @@ function toggleEditing() {
     updateYieldCurve();
 }
 
-function compareModeToggle() {
-    compareMode = !compareMode;
+function compareMode() {
+    isCompareMode = !isCompareMode;
     const wrapper = document.getElementById('yield-chart-wrapper');
     
-    if (compareMode) {
+    if (isCompareMode) {
         // Save current curve
         savedCurves.push({
             type: currentCurveType,
@@ -173,7 +173,7 @@ function updateYieldCurve() {
     svg.innerHTML += `<text x="${width / 2}" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#003f87">${currentCurveType.charAt(0).toUpperCase() + currentCurveType.slice(1)} Yield Curve</text>`;
     
     // Draw saved curves in compare mode
-    if (compareMode && savedCurves.length > 0) {
+    if (isCompareMode && savedCurves.length > 0) {
         savedCurves.forEach(curve => {
             drawCurve(svg, curve.yields, curve.color, xScale, yScale, curve.type, false);
         });
@@ -245,6 +245,11 @@ function editYieldPoint(index) {
     if (newYield !== null && !isNaN(parseFloat(newYield))) {
         currentYields[index] = parseFloat(newYield);
         currentCurveType = 'custom';
+        
+        // Update button states
+        document.querySelectorAll('.curve-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('btn-custom').classList.add('active');
+        
         updateYieldCurve();
     }
 }
@@ -355,7 +360,7 @@ function visualizeDuration(faceValue, couponRate, years, currentYield, modifiedD
         actualPrices.push(calculateBondPriceForYield(faceValue, couponRate, years, y));
         
         const yieldChange = y - currentYield;
-        const estimatedPrice = currentPrice * (1 - modifiedDuration * yieldChange);
+        const estimatedPrice = currentPrice * (1 + (-modifiedDuration * yieldChange));
         estimatedPrices.push(estimatedPrice);
     }
     
